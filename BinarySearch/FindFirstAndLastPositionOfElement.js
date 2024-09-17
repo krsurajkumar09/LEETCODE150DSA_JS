@@ -25,6 +25,52 @@ var searchRange = function (nums, target) {
   return [firstOccurence, lastOccurence];
 };
 
+// Optimized Way Binary Search
+
+var searchRange = function (nums, target) {
+  // Checking the first occurence
+  function findFirstOccurence(nums, target) {
+    let left = 0;
+    let right = nums.length - 1;
+    let firstOccurence = -1;
+
+    while (left <= right) {
+      let mid = Math.floor(left + (right - left) / 2);
+
+      if (target === nums[mid]) {
+        firstOccurence = mid;
+        right = mid - 1;
+      } else if (target >= nums[mid]) {
+        left = mid + 1;
+      } else right = mid - 1;
+    }
+    return firstOccurence;
+  }
+
+  // Checking the last occurence
+  function findLastOccurence(nums, target) {
+    let left = 0;
+    let right = nums.length - 1;
+    let lastOccurence = -1;
+    while (left <= right) {
+      let mid = Math.floor(left + (right - left) / 2);
+
+      if (target === nums[mid]) {
+        lastOccurence = mid;
+        left = mid + 1;
+      } else if (target >= nums[mid]) {
+        left = mid + 1;
+      } else right = mid - 1;
+    }
+    return lastOccurence;
+  }
+
+  let firstOccurence = findFirstOccurence(nums, target);
+  let lastOccurence = findLastOccurence(nums, target);
+
+  return [firstOccurence, lastOccurence];
+};
+
 // Example 1:
 
 // Input: nums = [5,7,7,8,8,10], target = 8
